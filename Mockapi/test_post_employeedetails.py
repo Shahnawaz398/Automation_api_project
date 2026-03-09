@@ -3,6 +3,7 @@ import requests
 
 class TestPostEmployeeDetails:
 
+        @pytest.mark.all
         @pytest.mark.regression
         @pytest.mark.smoke
         def test_post_employee_details_success(self):
@@ -21,6 +22,7 @@ class TestPostEmployeeDetails:
             assert data["position"] == payload["position"]
             assert data["department"] == payload["department"]
 
+        @pytest.mark.all
         @pytest.mark.regression
         @pytest.mark.smoke
         def test_post_employee_details_invalid_payload(self):
@@ -39,6 +41,7 @@ class TestPostEmployeeDetails:
             assert data["position"] == payload["position"]
             assert data["department"] == payload["department"]
 
+        @pytest.mark.all
         @pytest.mark.regression
         @pytest.mark.smoke
         def test_post_employee_details_missing_required_fields(self):
@@ -48,6 +51,7 @@ class TestPostEmployeeDetails:
             response = requests.post(api_url, json=payload)
             assert response.status_code == 201
 
+        @pytest.mark.all
         @pytest.mark.regression
         def test_post_employee_details_empty_payload(self):
             """Test that posting empty payload returns 400 status."""
@@ -55,6 +59,7 @@ class TestPostEmployeeDetails:
             response = requests.post(api_url, json={})
             assert response.status_code == 201
 
+        @pytest.mark.all
         @pytest.mark.regression
         def test_post_employee_details_special_characters(self):
             """Test posting employee details with special characters."""
@@ -69,6 +74,7 @@ class TestPostEmployeeDetails:
             data = response.json()
             assert data["name"] == payload["name"]
 
+        @pytest.mark.all
         @pytest.mark.regression
         def test_post_employee_details_duplicate_entry(self):
             """Test posting duplicate employee details."""

@@ -3,6 +3,8 @@ import requests
 
 class TestFetchEmployeeDetails:
 
+    
+    @pytest.mark.all
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_fetch_employee_details_success(self):
@@ -15,6 +17,7 @@ class TestFetchEmployeeDetails:
         data = response.json()
         assert data[0]["id"] == '1'
 
+    @pytest.mark.all
     @pytest.mark.regression
     @pytest.mark.smoke
     def test_fetch_employee_details_not_found(self):
