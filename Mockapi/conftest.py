@@ -1,10 +1,13 @@
 import pytest
 
+def pytest_collection_modifyitems(config, items):
+    # Get the keyword or marker provided in the CLI
+    keyword = config.getoption("keyword")
+    marker = config.getoption("markexpr")
 
-def pytest_configure(config):
-    config.addinivalue_line(
-        "markers", "smoke: mark test as a smoke test"
-    )
-    config.addinivalue_line(
-        "markers", "regression: mark test as a regression test"
-    )
+    if keyword or marker:
+        for item in items:
+            # If the test doesn't match the selection, mark it as skipped
+            # instead of letting pytest deselect it.
+            if not config.pluginmanager.get_plugin("markgenerator")._item_matches(item, config):
+                item.add_marker(pytest.mark.skip(reason="Not selected for this run"))
